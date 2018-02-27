@@ -2,6 +2,18 @@
 
 <ul>
 <% @category.items.each do |item| %>
-    <li><%= link_to item.title, item_path(item) %></li>
+<% if item.inventory >= 1 %>
+    
+  <li><%= link_to item.title, item_path(item) %></li>
+    $<%= item.price.to_f/100 %>
+    Inventory:<%= item.inventory %>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= button_to 'Add to Cart', line_items_path(item_id: item) %>
+      <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %>
+    </p>
+  <% end %>
 <% end %>
 </ul>
